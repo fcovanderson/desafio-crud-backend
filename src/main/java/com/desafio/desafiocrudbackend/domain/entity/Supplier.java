@@ -6,11 +6,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.desafio.desafiocrudbackend.domain.enums.SupplierType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,8 +39,8 @@ public class Supplier implements Serializable{
 	@Column(name="CNPJ_CPF", unique = true, nullable = false)
 	private String cnpj_cpf;
 	
-	@Column(name="NOME", nullable = false)
-	private String nome;
+	@Column(name="NAME", nullable = false)
+	private String name;
 	
 	@Column(name="CEP", nullable = false)
 	private String cep;
@@ -50,6 +54,9 @@ public class Supplier implements Serializable{
 	@Column(name="BIRTH_DATE", nullable = true)
 	private Date birthDate;
 	
+	@Enumerated(EnumType.STRING)
+	private SupplierType supplierType;
+	
 	@OneToMany(mappedBy = "supplier")
 	private List<CompanySupplier> companies;
 
@@ -61,7 +68,7 @@ public class Supplier implements Serializable{
 	public Supplier(String cnpj_cpf, String nome, String cep, String email, String rg, Date birthDate) {
 		super();
 		this.cnpj_cpf = cnpj_cpf;
-		this.nome = nome;
+		this.name = nome;
 		this.cep = cep;
 		this.email = email;
 		this.rg = rg;
