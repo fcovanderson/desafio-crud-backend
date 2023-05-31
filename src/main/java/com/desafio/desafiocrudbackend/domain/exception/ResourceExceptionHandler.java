@@ -44,8 +44,22 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<StandardError> entityToUpdateNotFound(EmptyResultDataAccessException exception, HttpServletRequest request){ 
+	public ResponseEntity<StandardError> entityToRemoveNotFound(EmptyResultDataAccessException exception, HttpServletRequest request){ 
 		String message = this.messageSource.getMessage("message.exception.entity.not.found", null, Locale.getDefault());
+		HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
+	}
+	
+	@ExceptionHandler(InvalidBirthDateFormatException.class)
+	public ResponseEntity<StandardError> invalidBirthDateFormat(InvalidBirthDateFormatException exception, HttpServletRequest request){ 
+		String message = this.messageSource.getMessage("message.exception.supplier.invalid.birthdate", null, Locale.getDefault());
+		HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
+	}
+	
+	@ExceptionHandler(BirthDateOrRGNotInformedException.class)
+	public ResponseEntity<StandardError> birthDateOrRGNotInformed(BirthDateOrRGNotInformedException exception, HttpServletRequest request){ 
+		String message = this.messageSource.getMessage("message.exception.supplier.data.not.informed", null, Locale.getDefault());
 		HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
 	}

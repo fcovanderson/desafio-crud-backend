@@ -53,4 +53,18 @@ public class Supplier implements Serializable{
 	@OneToMany(mappedBy = "supplier")
 	private List<CompanySupplier> companies;
 
+	public Supplier() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Supplier(String cnpj_cpf, String nome, String cep, String email, String rg, Date birthDate) {
+		super();
+		this.cnpj_cpf = cnpj_cpf;
+		this.nome = nome;
+		this.cep = cep;
+		this.email = email;
+		this.rg = rg;
+		this.birthDate = birthDate;
+	}
 }

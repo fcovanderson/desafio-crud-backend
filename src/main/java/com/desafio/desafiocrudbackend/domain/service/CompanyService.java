@@ -11,17 +11,14 @@ import com.desafio.desafiocrudbackend.domain.entity.Company;
 import com.desafio.desafiocrudbackend.domain.repository.CompanyRepository;
 
 @Component
-public class CompanyService implements GenericService<CompanyForm, Company>{
-	
+public class CompanyService implements GenericService<CompanyForm, Company, Long>{
 	
 	@Autowired 
 	private CompanyRepository companyRepository;
 	
-	
-	
 	@Override
 	public Company save(CompanyForm companyForm) {
-		Company  newCompany = new Company(companyForm.getCnpj(), companyForm.getFantasyName(), companyForm.getCep());
+		Company newCompany = new Company(companyForm.getCnpj(), companyForm.getFantasyName(), companyForm.getCep());
 		return this.companyRepository.save(newCompany);
 	}
 	
@@ -29,7 +26,8 @@ public class CompanyService implements GenericService<CompanyForm, Company>{
 		return this.companyRepository.findAll();
 	}
 	
-	public Company update(Long id, CompanyForm companyForm) {
+	@Override
+	public Company update(CompanyForm companyForm, Long id) {
 		Optional<Company> company = this.companyRepository.findById(id);
 		company.get().setFantasyName(companyForm.getFantasyName());
 		company.get().setCep(companyForm.getCep());
@@ -37,6 +35,7 @@ public class CompanyService implements GenericService<CompanyForm, Company>{
 		return this.companyRepository.save(company.get());
 	}
 	
+	@Override
 	public void delete(Long id) {
 		this.companyRepository.deleteById(id);
 	}
