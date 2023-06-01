@@ -13,6 +13,7 @@ import com.desafio.desafiocrudbackend.domain.entity.Supplier;
 import com.desafio.desafiocrudbackend.domain.repository.CompanyRepository;
 import com.desafio.desafiocrudbackend.domain.repository.CompanySupplierRepository;
 import com.desafio.desafiocrudbackend.domain.repository.SupplierRepository;
+import com.desafio.desafiocrudbackend.domain.validator.CompanySupplierValidator;
 
 @Component
 public class CompanySupplierService {
@@ -26,11 +27,15 @@ public class CompanySupplierService {
 	@Autowired 
 	private SupplierRepository supplierRepository;
 	
+	@Autowired
+	private CompanySupplierValidator companySupplierValidator;
+	
 	public CompanySupplier save(CompanySupplierForm companySupplierForm) {
 		Optional<Company> company = this.companyRepository.findById(companySupplierForm.getIdCompany());
 		Optional<Supplier> supplier = this.supplierRepository.findById(companySupplierForm.getIdSupplier());
-		
 		CompanySupplier newCompanySupplier = new CompanySupplier(company.get(), supplier.get());
+		
+		this.companySupplierValidator.validate(newCompanySupplier);
 		
 		newCompanySupplier = this.companySupplierRepository.save(newCompanySupplier);
 		

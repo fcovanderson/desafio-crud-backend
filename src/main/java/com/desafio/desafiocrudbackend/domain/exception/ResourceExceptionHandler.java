@@ -64,6 +64,13 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
 	}
 	
+	@ExceptionHandler(UnderAgeException.class)
+	public ResponseEntity<StandardError> birthDateOrRGNotInformed(UnderAgeException exception, HttpServletRequest request){ 
+		String message = this.messageSource.getMessage("message.exception.supplier.under.age", null, Locale.getDefault());
+		HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
+	}
+	
 	private StandardError standardErrorFactory(HttpStatus httpStatus, String mensagem, Exception exception, HttpServletRequest request) {
 		StandardError error = new StandardError();
 		error.setTimestamp(Instant.now());
