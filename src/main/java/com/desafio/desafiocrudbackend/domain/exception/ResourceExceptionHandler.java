@@ -65,8 +65,15 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(UnderAgeException.class)
-	public ResponseEntity<StandardError> birthDateOrRGNotInformed(UnderAgeException exception, HttpServletRequest request){ 
+	public ResponseEntity<StandardError> underAge(UnderAgeException exception, HttpServletRequest request){ 
 		String message = this.messageSource.getMessage("message.exception.supplier.under.age", null, Locale.getDefault());
+		HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
+	}
+	
+	@ExceptionHandler(InvalidCEPException.class)
+	public ResponseEntity<StandardError> invalidCEP(InvalidCEPException exception, HttpServletRequest request){ 
+		String message = this.messageSource.getMessage("message.exception.invalid.cep", null, Locale.getDefault());
 		HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		return ResponseEntity.status(httpStatus).body(this.standardErrorFactory(httpStatus, message, exception, request));
 	}
