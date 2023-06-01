@@ -37,4 +37,14 @@ public class CompanySupplier implements Serializable{
 	@ManyToOne
     @JoinColumn(name = "ID_SUPPLIER", nullable = false)
 	private Supplier supplier;
+
+	public CompanySupplier() {
+		super();
+	}
+
+	public CompanySupplier(Company company, Supplier supplier) {
+		super();
+		this.company = company;
+		this.supplier = supplier;
+	}
 }

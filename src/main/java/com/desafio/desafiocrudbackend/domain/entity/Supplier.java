@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.desafio.desafiocrudbackend.domain.enums.SupplierType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,6 +58,7 @@ public class Supplier implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private SupplierType supplierType;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "supplier")
 	private List<CompanySupplier> companies;
 
@@ -65,7 +67,7 @@ public class Supplier implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Supplier(String cnpj_cpf, String nome, String cep, String email, String rg, Date birthDate) {
+	public Supplier(String cnpj_cpf, String nome, String cep, String email, String rg, Date birthDate, SupplierType supplierType) {
 		super();
 		this.cnpj_cpf = cnpj_cpf;
 		this.name = nome;
@@ -73,5 +75,6 @@ public class Supplier implements Serializable{
 		this.email = email;
 		this.rg = rg;
 		this.birthDate = birthDate;
+		this.supplierType = supplierType;
 	}
 }

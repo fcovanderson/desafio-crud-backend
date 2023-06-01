@@ -19,7 +19,7 @@ import com.desafio.desafiocrudbackend.domain.service.GenericService;
 public class GenericController<S extends GenericService<F, E, ID>, E, F, ID> {
 	
 	@Autowired
-	private S service;
+	protected S service;
 	
 	@GetMapping
 	public ResponseEntity<List<E>> listAllEntities() {
